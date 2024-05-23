@@ -7,7 +7,7 @@ exports.handler = async (event) => {
     if (path === '/hello' && method === 'GET'){
       responseJson = {
           statusCode: 200,
-          message: JSON.parse(JSON.stringify('Hello from Lambda!')),
+          message: JSON.parse(JSON.stringify('Hello from Lambda')),
       };
       response = {
           statusCode: 200,
