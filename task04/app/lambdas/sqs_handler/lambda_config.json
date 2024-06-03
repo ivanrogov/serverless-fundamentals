@@ -18,12 +18,11 @@
     {
     "resource_type" : "sqs_trigger",
     "target_queue" : "async_queue",
-    "batch_size" : 1,
-    "batch_window": 1
+    "batch_size" : 10
     }
   ],
   "env_variables": {},
-  "publish_version": true,
+  "publish_version": false,
   "url_config": {},
   "ephemeral_storage": 512
 }
