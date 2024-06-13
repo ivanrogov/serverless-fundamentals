@@ -27,8 +27,8 @@
                 "s3:ListBucket"
           ],
           "Effect": "Allow",
-          "Resource": ["arn:aws:s3:::cmtr-a3f8c244-uuid-storage",
-                       "arn:aws:s3:::cmtr-a3f8c244-uuid-storage/*"]
+          "Resource": ["arn:aws:s3:::cmtr-a3f8c244-uuid-storage-test",
+                       "arn:aws:s3:::cmtr-a3f8c244-uuid-storage-test/*"]
         }
       ],
       "Version": "2012-10-17"
