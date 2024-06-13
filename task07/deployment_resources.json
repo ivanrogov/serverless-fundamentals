@@ -1,0 +1,57 @@
+{
+  "lambda-basic-execution": {
+    "policy_content": {
+      "Statement": [
+        {
+          "Action": [
+            "logs:CreateLogGroup",
+            "logs:CreateLogStream",
+            "logs:PutLogEvents",
+            "dynamodb:GetItem",
+            "dynamodb:Query",
+            "dynamodb:PutItem",
+            "dynamodb:Batch*",
+            "dynamodb:DeleteItem",
+            "ssm:PutParameter",
+            "ssm:GetParameter",
+            "kms:Decrypt"
+          ],
+          "Effect": "Allow",
+          "Resource": "*"
+        },
+        {
+          "Action": [
+                "s3:PutObject",
+                "s3:GetObject",
+                "s3:DeleteObject",
+                "s3:ListBucket"
+          ],
+          "Effect": "Allow",
+          "Resource": ["arn:aws:s3:::cmtr-a3f8c244-uuid-storage",
+                       "arn:aws:s3:::cmtr-a3f8c244-uuid-storage/*"]
+        }
+      ],
+      "Version": "2012-10-17"
+    },
+    "resource_type": "iam_policy"
+  },
+  "uuid-storage": {
+    "resource_type": "s3_bucket",
+    "acl": "private",
+    "location": "eu-central-1",
+    "cors": [],
+    "policy": {},
+    "public_access_block": {
+      "block_public_acls": false,
+      "ignore_public_acls": false,
+      "block_public_policy": false,
+      "restrict_public_buckets": false
+    }
+  },
+  "uuid_trigger": {
+    "resource_type": "cloudwatch_rule",
+    "rule_type": "schedule",
+    "region": "eu-central-1",
+    "expression": "cron(0/1 * * * ? *)"
+  }
+}
