@@ -32,7 +32,7 @@ exports.handler = async (event) => {
         }
     }
     params = {
-        TableName: "cmtr-a3f8c244-Audit",
+        TableName: "cmtr-a3f8c244-Audit-test",
         Item: audit
     };
 
