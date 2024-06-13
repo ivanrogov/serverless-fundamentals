@@ -12,7 +12,7 @@ exports.handler = async (event) => {
     if (record.eventName == 'INSERT'){
         newVal = {
           "key": record.dynamodb.NewImage.key.S,
-          "value": record.dynamodb.NewImage.value.N
+          "value": Number(record.dynamodb.NewImage.value.N)
         };
         audit = {
           "id": uuid.v4(),
@@ -27,8 +27,8 @@ exports.handler = async (event) => {
           "itemKey": record.dynamodb.Keys.key.S,
           "modificationTime": new Date(timestampNumber*1000).toISOString(),
           "updatedAttribute": "value",
-          "oldValue": record.dynamodb.OldImage.value.N,
-          "newValue": record.dynamodb.NewImage.value.N
+          "oldValue": Number(record.dynamodb.OldImage.value.N),
+          "newValue": Number(record.dynamodb.NewImage.value.N)
         }
     }
     params = {
