@@ -127,7 +127,7 @@ app.post('/signin', async (req, res) => {
             authResponse = challengeResponse;   // Overwrite the original auth response with the final auth response
         }
 
-        res.send({ accessToken: authResponse.AuthenticationResult.AccessToken });
+        res.send({ accessToken: authResponse.AuthenticationResult.IdToken });
     } catch (err) {
         res.status(400).send({ error: err.message });
     }
