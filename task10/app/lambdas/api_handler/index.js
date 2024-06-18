@@ -169,6 +169,10 @@ app.post('/signup',async (req, res) =>{
             {
                 Name: 'family_name',
                 Value: lastName
+            },
+            {
+                Name: 'email',
+                Value: email
             }
         ]
       };
