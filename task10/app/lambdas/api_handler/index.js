@@ -16,7 +16,7 @@ const reservationsTbl = process.env.reservations_table;
 const validator = require('validator');
 
 const isPasswordValid = (password) => {
-    const regex = new RegExp(/^[a-z0-9.$%^*]+$/i);
+    const regex = new RegExp(/^[a-z0-9.$%_\-^*]+$/i);
     return password.length >= 12 && password.match(regex) !== null;
 }
 
