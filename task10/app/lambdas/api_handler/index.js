@@ -152,6 +152,7 @@ app.post('/signup',async (req, res) =>{
 
     // validate password using schema
     if (!isPasswordValid(password)) {
+        console.log(`Password Invalid: ${password}`);
         return res.status(400).send({ error: 'Invalid Password.' });
     }
 
