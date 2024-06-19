@@ -81,6 +81,8 @@
             "tags":[
                "Reservations"
             ],
+            "summary":"Operations with reservations",
+            "description":"Operations with reservations",
             "requestBody":{
                "description":"Create a new pet in the store",
                "content":{
@@ -348,6 +350,16 @@
             "tags":[
                "Authentication"
             ],
+            "requestBody":{
+               "description":"Create a table",
+               "content":{
+                  "application/json":{
+                     "schema":{
+                        "$ref":"#/components/schemas/SignIn"
+                     }
+                  }
+               }
+            },
             "responses":{
                "200":{
                   "description":"200 response",
@@ -543,6 +555,8 @@
             "tags":[
                "Tables"
             ],
+            "summary":"Operations with tables",
+            "description":"Operations with tables",
             "parameters":[
                {
                   "name":"tableId",
@@ -659,6 +673,19 @@
    },
    "components":{
       "schemas":{
+         "SignIn":{
+            "type":"object",
+            "properties":{
+               "email":{
+                  "type":"string",
+                  "example":"foobar@gmail.com"
+               },
+               "password":{
+                  "type":"string",
+                  "example":"VerySecret!pass$"
+               }
+            }
+         },
          "Empty":{
             "title":"Empty Schema",
             "type":"object"
