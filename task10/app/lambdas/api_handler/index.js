@@ -295,17 +295,21 @@ app.all('/reservations', async (req, res) => {
 
             const reservationId = uuidv4();
 
-            // Check if tableNumber exists in "Tables" table
+            // Check if the table exists in "Tables" table
             let tableParams = {
                 TableName: tablesTbl,
-                Key: {
-                    'id': tableNumber
+                FilterExpression: '#number = :number',
+                ExpressionAttributeNames: {
+                    '#number': 'number'
+                },
+                ExpressionAttributeValues: {
+                    ':number': tableNumber
                 }
             };
 
-            let tableData = await dynamodb.get(tableParams).promise();
+            let tablesData = await dynamodb.scan(tableParams).promise();
 
-            if (!tableData.Item) {
+            if (!tablesData.Items || tablesData.Items.length === 0) {
                 return res.status(400).send({ error: `Table with number ${tableNumber} does not exist.` });
             }
 
