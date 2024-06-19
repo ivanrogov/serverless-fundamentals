@@ -295,6 +295,44 @@ app.all('/reservations', async (req, res) => {
 
             const reservationId = uuidv4();
 
+            // Check if tableNumber exists in "Tables" table
+            let tableParams = {
+                TableName: tablesTbl,
+                Key: {
+                    'id': tableNumber
+                }
+            };
+
+            let tableData = await dynamodb.get(tableParams).promise();
+
+            if (!tableData.Item) {
+                return res.status(400).send({ error: `Table with number ${tableNumber} does not exist.` });
+            }
+
+            // Check for overlapping reservations
+            let reservationParams = {
+                TableName: reservationsTbl,
+                FilterExpression: "#tableNumber = :tableNumber AND #date = :date AND ((#start >= :start AND #start < :end) OR (#end > :start AND #end <= :end))",
+                ExpressionAttributeNames: {
+                    "#tableNumber": "tableNumber",
+                    "#date": "date",
+                    "#start": "slotTimeStart",
+                    "#end": "slotTimeEnd"
+                },
+                ExpressionAttributeValues: {
+                    ":tableNumber": tableNumber,
+                    ":date": date,
+                    ":start": slotTimeStart,
+                    ":end": slotTimeEnd
+                }
+            };
+
+            let overlapData = await dynamodb.scan(reservationParams).promise();
+
+            if (overlapData.Items && overlapData.Items.length > 0) {
+                return res.status(400).send({ error: `Table with number ${tableNumber} already has a booking in the requested slot.` });
+            }
+
             // Store the new reservation into DynamoDB
             let params = {
                 TableName: reservationsTbl,
