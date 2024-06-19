@@ -208,7 +208,7 @@ app.all('/tables', async (req, res) => {
 
             let tables = await dynamodb.scan(params).promise();
 
-            res.send(tables.Items);
+            res.send({tables: JSON.stringify(tables.Items)});
         }
 
         if(req.method === 'POST') {
@@ -275,7 +275,7 @@ app.all('/reservations', async (req, res) => {
 
             let reservations = await dynamodb.scan(params).promise();
 
-            res.send(reservations.Items);
+            res.send({ reservations: JSON.stringify(reservations.Items)});
 
         }
 
@@ -300,7 +300,7 @@ app.all('/reservations', async (req, res) => {
 
             await dynamodb.put(params).promise();
 
-            res.send({ id: reservationId });
+            res.send({ reservationId: reservationId });
         }
     } catch(err) {
         res.status(400).send({ error: "Failed with error: " + err });
