@@ -208,7 +208,7 @@ app.all('/tables', async (req, res) => {
 
             let tables = await dynamodb.scan(params).promise();
 
-            res.send({tables: JSON.stringify(tables.Items)});
+            res.send(JSON.stringify({tables: tables.Items}));
         }
 
         if(req.method === 'POST') {
@@ -275,7 +275,18 @@ app.all('/reservations', async (req, res) => {
 
             let reservations = await dynamodb.scan(params).promise();
 
-            res.send({ reservations: JSON.stringify(reservations.Items)});
+            let filteredReservations = reservations.Items.map(item => {
+            return {
+                   tableNumber: item.tableNumber,
+                   clientName: item.clientName,
+                   phoneNumber: item.phoneNumber,
+                   date: item.date,
+                   slotTimeStart: item.slotTimeStart,
+                   slotTimeEnd: item.slotTimeEnd
+                   }
+            });
+
+            res.send(JSON.stringify({ reservations: filteredReservations}));
 
         }
 
